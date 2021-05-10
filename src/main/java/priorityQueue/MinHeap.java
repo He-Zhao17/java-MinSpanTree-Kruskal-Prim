@@ -73,12 +73,8 @@ public class MinHeap {
         int pointer = 0;
         int child = 2 * pointer + 1;
         while (child < size) { // only have left child
-            if (child + 1 < size) {
-                if (heapArr[child].cost < heapArr[child + 1].cost) {
-                    child = 2 * pointer + 1;
-                } else {
-                    child++;
-                }
+            if (child + 1 < size && heapArr[child].cost > heapArr[child + 1].cost) {
+                child++;
             }
             if (heapArr[pointer].cost > heapArr[child].cost) {
                 swap(pointer, child);
@@ -120,6 +116,26 @@ public class MinHeap {
     }
 
     public void reduceKey (int nodeId, int newPriority) {
+        heapArr[posArr[nodeId]].cost = newPriority;
+
+        //fix positions
+        int pointer = posArr[nodeId];
+        while (pointer > 0 && heapArr[pointer].cost < heapArr[(pointer - 1) / 2].cost) {
+            swap(pointer, (pointer - 1) / 2);
+        }
+        int child = 2 * pointer + 1;
+        while (child < size) { // only have left child
+            if (child + 1 < size && heapArr[child].cost > heapArr[child + 1].cost) {
+                child++;
+            }
+            if (heapArr[pointer].cost > heapArr[child].cost) {
+                swap(pointer, child);
+                pointer = child;
+                child = 2 * pointer + 1;
+            } else {
+                break;
+            }
+        }
 
     }
 
