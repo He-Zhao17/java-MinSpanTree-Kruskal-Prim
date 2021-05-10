@@ -36,13 +36,6 @@ public class MinHeap {
         }
         heapArr[size - 1] = new MHNode(nodeId, priority);
 
-        // up
-        int pointer = this.size - 1;
-        while ((pointer - 1) / 2 >= 0 && heapArr[pointer].cost < heapArr[(pointer - 1) / 2].cost) { // fater Node >= 0
-            swap(pointer, (pointer - 1) / 2);
-            pointer = (pointer - 1) / 2;
-        }
-
         // update posArr
         int max = 0;
         for (MHNode k : heapArr) {
@@ -57,6 +50,17 @@ public class MinHeap {
         for (int i = 0; i < this.size; i++) {
             posArr[heapArr[i].id] = i;
         }
+
+
+
+        // up
+        int pointer = this.size - 1;
+        while ((pointer - 1) / 2 >= 0 && heapArr[pointer].cost < heapArr[(pointer - 1) / 2].cost) { // fater Node >= 0
+            swap(pointer, (pointer - 1) / 2);
+            pointer = (pointer - 1) / 2;
+        }
+
+
     }
 
     public int removeMin() {
@@ -122,6 +126,7 @@ public class MinHeap {
         int pointer = posArr[nodeId];
         while (pointer > 0 && heapArr[pointer].cost < heapArr[(pointer - 1) / 2].cost) {
             swap(pointer, (pointer - 1) / 2);
+
         }
         int child = 2 * pointer + 1;
         while (child < size) { // only have left child
