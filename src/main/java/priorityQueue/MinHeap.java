@@ -73,22 +73,6 @@ public class MinHeap {
         }
         MHNode resMHNode = old[0];
 
-        // down
-        int pointer = 0;
-        int child = 2 * pointer + 1;
-        while (child < size) { // only have left child
-            if (child + 1 < size && heapArr[child].cost > heapArr[child + 1].cost) {
-                child++;
-            }
-            if (heapArr[pointer].cost > heapArr[child].cost) {
-                swap(pointer, child);
-                pointer = child;
-                child = 2 * pointer + 1;
-            } else {
-                break;
-            }
-        }
-
         // update posArr
         if (posArr.length - 1 == resMHNode.id) {
             int max = 0;
@@ -112,6 +96,24 @@ public class MinHeap {
                 posArr[heapArr[i].id] = i;
             }
         }
+
+        // down
+        int pointer = 0;
+        int child = 2 * pointer + 1;
+        while (child < size) { // only have left child
+            if (child + 1 < size && heapArr[child].cost > heapArr[child + 1].cost) {
+                child++;
+            }
+            if (heapArr[pointer].cost > heapArr[child].cost) {
+                swap(pointer, child);
+                pointer = child;
+                child = 2 * pointer + 1;
+            } else {
+                break;
+            }
+        }
+
+
 
 
         return resMHNode.cost;
