@@ -152,6 +152,8 @@ public class MinHeap {
     // private functions
     private void swap (int id1, int id2) {
         try {
+            posArr[heapArr[id1].id] = id2;
+            posArr[heapArr[id2].id] = id1;
             MHNode temp = heapArr[id1];
             heapArr[id1] = heapArr[id2];
             heapArr[id2] = temp;
