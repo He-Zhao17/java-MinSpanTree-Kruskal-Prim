@@ -50,13 +50,72 @@ public class MinHeap {
                 max = k.id;
             }
         }
-        posArr = new int[max];
+        posArr = new int[max + 1];
+        for (int i = 0; i < posArr.length; i++) {
+            posArr[i] = -1;
+        }
         for (int i = 0; i < this.size; i++) {
             posArr[heapArr[i].id] = i;
         }
     }
 
     public int removeMin() {
+        MHNode[] old = heapArr;
+        this.size--;
+        heapArr = new MHNode[this.size];
+        heapArr[0] = old[-1];
+        for (int i = 1; i < this.size; i++) {
+            heapArr[i] = old[i];
+        }
+        MHNode resMHNode = old[0];
+
+        // down
+        int pointer = 0;
+        int child = 2 * pointer + 1;
+        while (child < size) { // only have left child
+            if (child + 1 < size) {
+                if (heapArr[child].cost < heapArr[child + 1].cost) {
+                    child = 2 * pointer + 1;
+                } else {
+                    child++;
+                }
+            }
+            if (heapArr[pointer].cost > heapArr[child].cost) {
+                swap(pointer, child);
+                pointer = child;
+                child = 2 * pointer + 1;
+            } else {
+                break;
+            }
+        }
+
+        // update posArr
+        if (posArr.length - 1 == resMHNode.id) {
+            int max = 0;
+            for (MHNode k : heapArr) {
+                if (max < k.id) {
+                    max = k.id;
+                }
+            }
+            posArr = new int[max + 1];
+            for (int i = 0; i < posArr.length; i++) {
+                posArr[i] = -1;
+            }
+            for (int i = 0; i < this.size; i++) {
+                posArr[heapArr[i].id] = i;
+            }
+        } else {
+            for (int i = 0; i < posArr.length; i++) {
+                posArr[i] = -1;
+            }
+            for (int i = 0; i < this.size; i++) {
+                posArr[heapArr[i].id] = i;
+            }
+        }
+
+
+        return resMHNode.cost;
+
 
     }
 
