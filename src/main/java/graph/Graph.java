@@ -1,7 +1,13 @@
 package graph;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * A class that represents a graph: stores the array of city nodes, the
@@ -17,6 +23,7 @@ public class Graph {
     private int numEdges; // total number of edges
     // Add other variable(s) as needed:
     // add a HashMap to map cities to vertexIds.
+    private HashMap<String, Integer> reflectMap;
 
     /**
      * Constructor. Read graph info from the given file,
@@ -26,7 +33,43 @@ public class Graph {
      */
     public Graph(String filename) {
         // FILL IN CODE
-
+        try {
+            Boolean isArc = false;
+            Scanner scann = new Scanner (new FileReader(filename));
+            scann.nextLine();
+            int numNodes = Integer.valueOf(scann.nextLine());
+            nodes = new CityNode[numNodes];
+            reflectMap = new HashMap<>();
+            int nodeIndex = 0;
+            adjacencyList = new Edge[numNodes];
+            numEdges = 0;
+            while (scann.hasNext()) {
+                String temp = scann.nextLine();
+                if (temp.equals("ARCS")) {
+                    isArc = true;
+                    continue;
+                }
+                if (isArc) {
+                    String[] tempAr = temp.split(" ");
+                    int id = reflectMap.get(tempAr[0]);
+                    if (adjacencyList[id] == null) {
+                        adjacencyList[id] = new Edge(id, reflectMap.get(tempAr[1]), Integer.valueOf(tempAr[2]));
+                    } else {
+                        Edge tempEdge = new Edge(id, reflectMap.get(tempAr[1]), Integer.valueOf(tempAr[2]));
+                        tempEdge.setNext(adjacencyList[id]);
+                        adjacencyList[id] = tempEdge;
+                    }
+                    numEdges++;
+                } else {
+                    String[] cNA = temp.split(" ");
+                    reflectMap.put(cNA[0], nodeIndex);
+                    nodes[nodeIndex] = new CityNode(cNA[0], Double.valueOf(cNA[1]), Double.valueOf(cNA[2]));
+                    nodeIndex++;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.getMessage();
+        }
     }
 
     /**
