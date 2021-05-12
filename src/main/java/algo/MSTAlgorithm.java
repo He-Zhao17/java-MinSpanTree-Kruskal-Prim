@@ -37,6 +37,9 @@ public abstract class MSTAlgorithm {
      * */
     public void printMST() {
         // FILL IN CODE
+        for (Edge e : edgesMST) {
+            System.out.println(graph.getNode(e.getId1()) + " " + graph.getNode(e.getId2()));
+        }
     }
 
     /**

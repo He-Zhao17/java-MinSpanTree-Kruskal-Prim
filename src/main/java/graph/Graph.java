@@ -25,6 +25,7 @@ public class Graph {
     // add a HashMap to map cities to vertexIds.
     private HashMap<String, Integer> reflectMap;
 
+
     /**
      * Constructor. Read graph info from the given file,
      * and create nodes and edges of the graph.
