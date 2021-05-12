@@ -116,7 +116,7 @@ public class MinHeap {
 
 
 
-        return resMHNode.cost;
+        return resMHNode.id;
 
 
     }
