@@ -60,7 +60,15 @@ public class Graph {
                         tempEdge.setNext(adjacencyList[id]);
                         adjacencyList[id] = tempEdge;
                     }
-                    numEdges++;
+                    id = reflectMap.get(tempAr[1]);
+                    if (adjacencyList[id] == null) {
+                        adjacencyList[id] = new Edge(id, reflectMap.get(tempAr[0]), Integer.valueOf(tempAr[2]));
+                    } else {
+                        Edge tempEdge = new Edge(id, reflectMap.get(tempAr[0]), Integer.valueOf(tempAr[2]));
+                        tempEdge.setNext(adjacencyList[id]);
+                        adjacencyList[id] = tempEdge;
+                    }
+                    numEdges += 2;
                 } else {
                     String[] cNA = temp.split(" ");
                     reflectMap.put(cNA[0], nodeIndex);

@@ -9,6 +9,8 @@ import userInterface.GUIApp;
  *  */
 public class MSTDriver {
 	public static void main(String[] args) {
+		args = new String[1];
+		args[0] = "USA.txt";
 		if (args.length == 0) {
 			System.out.println("No arguments");
 			return;
