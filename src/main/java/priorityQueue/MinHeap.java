@@ -64,10 +64,16 @@ public class MinHeap {
     }
 
     public int removeMin() {
+        if (this.size == 1) {
+            MHNode res = heapArr[0];
+            heapArr = new MHNode[0];
+            this.size --;
+            return res.id;
+        }
         MHNode[] old = heapArr;
         this.size--;
         heapArr = new MHNode[this.size];
-        heapArr[0] = old[-1];
+        heapArr[0] = old[old.length - 1];
         for (int i = 1; i < this.size; i++) {
             heapArr[i] = old[i];
         }

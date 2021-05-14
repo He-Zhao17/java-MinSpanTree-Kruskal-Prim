@@ -63,7 +63,10 @@ public class PrimAlgorithm extends MSTAlgorithm {
                     } else {
                         reflectMapId2Edge.put(newEdge.getId2(), newEdge);
                         table.insert(newEdge.getId2(), newEdge.getCost());
+                        newEdge = newEdge.next();
                     }
+                } else {
+                    newEdge = newEdge.next();
                 }
             }
         }
