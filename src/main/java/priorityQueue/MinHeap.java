@@ -175,7 +175,7 @@ public class MinHeap {
 
         public MHNode(int d, int ost) {
             id = d;
-            ost = cost;
+            cost = ost;
         }
     }
 

@@ -49,6 +49,7 @@ public class PrimAlgorithm extends MSTAlgorithm {
             Edge tempMinEdge = reflectMapId2Edge.get(tempMin);
             known.add(tempMinEdge.getId2());
             unknown.remove(tempMinEdge.getId2());
+            reflectMapId2Edge.remove(tempMin);
             addMSTEdge(tempMinEdge);
             // update
             Edge newEdge = getFirstEdge(tempMin);
