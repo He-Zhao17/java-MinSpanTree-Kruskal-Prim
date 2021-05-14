@@ -31,7 +31,9 @@ public class KruskalAlgorithm extends MSTAlgorithm {
         for (int i = 0; i < numNodes; i++) {
             Edge temp = getFirstEdge(i);
             while (temp != null) {
-                edges.add(temp);
+                if (temp.getId2() > i) {
+                    edges.add(temp);
+                }
                 temp = temp.next();
             }
         }
@@ -43,7 +45,7 @@ public class KruskalAlgorithm extends MSTAlgorithm {
                 } else if (o1.getCost() == o2.getCost()) {
                     return 0;
                 } else {
-                    return +1;
+                    return -1;
                 }
             }
         });
